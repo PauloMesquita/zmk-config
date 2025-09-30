@@ -7,6 +7,8 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/pointing.h>
+
 
 #define HOST_OS 1
 #include "zmk-helpers/helper.h"
@@ -17,18 +19,11 @@
 #define DEFAULT 0
 #define SYM_LAY 1
 #define FUN_LAY 2
-#define SYS_LAY 3
+#define MSE_LAY 3
+#define SYS_LAY 4
 
 / {
     behaviors {
-      /* Tap-Dance */
-      shftCps: shift_to_caps { // 1-tap the LSHFT key for LSHFT functionality. 2-tap the LSHFT key for CAPSLOCK functionality
-        compatible = "zmk,behavior-tap-dance";
-        #binding-cells = <0>;
-        tapping-term-ms = <200>;
-        bindings = <&kp LSHFT>, <&kp CAPSLOCK>;
-      };
-
       /* Mod-Morph */
       bckspDel: backspace_to_delete { // Tap BSPC key whith LSHFT held down for DELETE functionality
         compatible = "zmk,behavior-mod-morph";
@@ -58,11 +53,11 @@
 // |L_SHFT CAPS |  a A       |  s S       |  d D       |  f F       |  g G       |   |  h H       |  j J       |  k K       |  l L       |  ; :       |  ' "       |
    &shftCps     &kp A        &kp S        &kp D        &kp F        &kp G            &kp H        &kp J        &kp K        &kp L        &kp SEMI     &kp APOS
 // ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤   ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤
-// |  L_CTRL    |  z Z       |  x X       |  c C       |  v V       |  b B       |   |  n N       |  m M       |  , <       |  . >       |  / ?       |  TAB       |
-   &kp LCTRL    &kp Z        &kp X        &kp C        &kp V        &kp B            &kp N        &kp M        &kp COMMA    &kp DOT      &kp SLASH    &kp TAB
+// |  L_CTRL    |  z Z       |  x X       |  c C       |  v V       |  b B       |   |  n N       |  m M       |  , <       |  . >       |  / ?       |  ENT       |
+   &kp LCTRL    &kp Z        &kp X        &kp C        &kp V        &kp B            &kp N        &kp M        &kp COMMA    &kp DOT      &kp SLASH    &kp ENTER
 // ╰────────────┴────────────┴────────────┴────────────┼────────────┼────────────┤   ├────────────┼────────────┼────────────┴────────────┴────────────┴────────────╯
-//                                        | LALT LOPT  |  SYM_LAY   |  SPC       |   |  ENT       |  FUN_LAY   |  META      |
-                                          &kp LALT     &mo SYM_LAY  &kp SPACE        &kp ENTER    &mo FUN_LAY  &kp LGUI
+//                                        | LALT LOPT  |  SYM_LAY   | MOUSE LAY  |   |  SPC       |  FUN_LAY   |  META      |
+                                          &kp LALT     &mo SYM_LAY  &mo MSE_LAY        &kp SPACE    &mo FUN_LAY  &kp LGUI
 //                                        ╰────────────┴────────────┴────────────╯   ╰────────────┴────────────┴────────────╯
          >;
       }; 
@@ -73,14 +68,14 @@
 // |  ` ~       |  1 !       |  2 @       |  3 #       |  4 $       |  5 %       |   |  6 ^       |  7 &       |  8 *       |  9 (       |  0 )       | BKSP[DEL]  |
    &kp GRAVE    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5           &kp N6       &kp N7       &kp N8       &kp N9       &kp N0       &bckspDel
 // ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤   ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤
-// |L_SHFT CAPS |            | PRT_SCR    | MUTE_MIC   |  VOL_UP    |  BRT_UP    |   |  (         |  [ {       |  {         |  - _       |  = +       |   \ |      |
-   &shftCps     &none        &kp PSCRN    &kp F20      &kp K_VOL_UP &kp C_BRI_UP     &kp LPAR     &kp LBKT     &kp LBRC     &kp MINUS    &kp EQUAL    &kp BSLH
+// |L_SHFT CAPS |   TAB      | PRT_SCR    |   UP       |            |            |   |  (         |  [ {       |  {         |  - _       |  = +       |   \ |      |
+   &shftCps     &kp TAB        &kp PSCRN    &kp UP      &none          &none           &kp LPAR     &kp LBKT     &kp LBRC     &kp MINUS    &kp EQUAL    &kp BSLH
 // ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤   ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤
-// |  L_CTRL    |            |            |  ç Ç       |  VOL_DW    |  BRT_DW    |   |  )         |  ] }       |  }         |  _         |  +         |   |        |
-   &kp LCTRL    &none        &none       &pt_c_cedilla &kp K_VOL_DN &kp C_BRI_DN     &kp RPAR     &kp RBKT     &kp RBRC     &kp UNDER    &kp PLUS     &kp PIPE
+// |  L_CTRL    |            |   LEFT     |  DOWN      |  RIGHT     |            |   |  )         |  ] }       |  }         |  _         |  +         |   |        |
+   &kp LCTRL    &none        &kp LEFT      &kp DOWN     &kp RIGHT      &none           &kp RPAR     &kp RBKT     &kp RBRC     &kp UNDER    &kp PLUS     &kp PIPE
 // ╰────────────┴────────────┴────────────┴────────────┼────────────┼────────────┤   ├────────────┼────────────┼────────────┴────────────┴────────────┴────────────╯
-//                                        | LALT LOPT  |  SYM_LAY   |  SPC       |   |  ENT       |  FUN_LAY   |  META      |
-                                          &trans       &trans       &trans           &trans       &trans       &trans
+//                                        | LALT LOPT  |  ITSELF    |  MOUSE LAY |   |  SPC       |  SYS_LAY   |  META      |
+                                          &trans       &trans       &trans           &trans       &mo SYS_LAY       &trans
 //                                        ╰────────────┴────────────┴────────────╯   ╰────────────┴────────────┴────────────╯
          >;
       };      
@@ -97,7 +92,25 @@
 // |            |            |            |            |            |            |   |            |            |            |            |            |            |
    &none        &none        &none        &none        &none        &none            &none        &none        &none        &none        &none        &none 
 // ╰────────────┴────────────┴────────────┴────────────┼────────────┼────────────┤   ├────────────┼────────────┼────────────┴────────────┴────────────┴────────────╯
-//                                        | LALT LOPT  |  SYM_LAY   |  SPC       |   |  ENT       |  FUN_LAY   |  META      |
+//                                        | LALT LOPT  |  SYS_LAY   | MOUSE LAY  |   |  ENT       |  ITSELF    |  META      |
+                                          &trans       &mo SYS_LAY    &trans           &trans       &trans       &trans
+//                                        ╰────────────┴────────────┴────────────╯   ╰────────────┴────────────┴────────────╯
+         >;
+      };
+
+      mouse_layer {
+         bindings = <
+// ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮   ╭────────────┬────────────┬────────────┬────────────┬────────────┬────────────╮
+// |            |            |            |            |            |            |   | LEFT CLICK |RIGHT CLICK | MOUSE UP   |            |            |            |
+   &none        &none        &none        &none        &none        &none            &mkp LCLK    &mkp RCLK    &mmv MOVE_UP   &none        &none        &none
+// ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤   ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤
+// |            |            |            |            |            |            |   | SCROLL UP  | MOUSE DOWN | MOUSE UP   | MOUSE RIGHT|            |            |
+   &none        &none        &none        &none        &none        &none            &mwh SCROLL_UP &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &none        &none
+// ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤   ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤
+// |            |            |            |            |            |            |   | SCROLL DOWN|            |            |            |            |            |
+   &none        &none        &none        &none        &none        &none            &mwh SCROLL_DOWN &none        &none        &none        &none        &none
+// ╰────────────┴────────────┴────────────┴────────────┼────────────┼────────────┤   ├────────────┼────────────┼────────────┴────────────┴────────────┴────────────╯
+//                                        |            |            |            |   |            |            |            |
                                           &trans       &trans       &trans           &trans       &trans       &trans
 //                                        ╰────────────┴────────────┴────────────╯   ╰────────────┴────────────┴────────────╯
          >;
