@@ -92,7 +92,7 @@
    &shftCps     &kp K_PP     &kp PSCRN    &kp F20      &kp K_VOL_UP &kp C_BRI_UP     &kp LPAR     &kp LBKT     &kp LBRC     &kp MINUS    &kp EQUAL    &kp BSLH
 // ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤   ├────────────┼────────────┼────────────┼────────────┼────────────┼────────────┤
 // |  L_CTRL    | PREV MEDIA | NEXT MEDIA |  ç Ç       |  VOL_DW    |  BRT_DW    |   |  )         |  ] }       |  }         |  _         |  +         |   |        |
-   &kp LCTRL    &kp C_PREV   &kp C_NEXT   &pt_c_cedilla &kp K_VOL_DN &kp C_BRI_DN     &kp RPAR     &kp RBKT     &kp RBRC     &kp UNDER    &kp PLUS     &kp PIPE
+   &kp LCTRL    &kp K_PREV   &kp K_NEXT   &pt_c_cedilla &kp K_VOL_DN &kp C_BRI_DN     &kp RPAR     &kp RBKT     &kp RBRC     &kp UNDER    &kp PLUS     &kp PIPE
 // ╰────────────┴────────────┴────────────┴────────────┼────────────┼────────────┤   ├────────────┼────────────┼────────────┴────────────┴────────────┴────────────╯
 //                                        | LALT LOPT  |  SYM_LAY   |  SPC       |   |  ENT       |  FUN_LAY   |  META      |
                                           &trans       &trans       &trans           &trans       &trans       &trans
